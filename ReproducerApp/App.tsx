@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import * as React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -24,6 +24,9 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -55,7 +58,7 @@ function Section({children, title}: SectionProps): React.JSX.Element {
   );
 }
 
-function App(): React.JSX.Element {
+function TabOne(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -93,6 +96,27 @@ function App(): React.JSX.Element {
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+}
+
+function TabTwo() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Tab two</Text>
+    </View>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
+function App(): React.JSX.Element {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Tab one" component={TabOne} />
+        <Tab.Screen name="Tab two" component={TabTwo} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
